@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'entities/ui/ResponsiveMovieApp.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'Views/Pages/BottomNavigation.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,6 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveMovieApp();
+    return MaterialApp(
+      theme: ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      home: const BottomNavigation(),
+    );
   }
 }

@@ -1,24 +1,25 @@
-import 'package:flutter/cupertino.dart';
-
 class Product {
-  final String name;
-  final String id;
+  final String? name;
+  final String? id;
   final String? image;
-  final double price;
+  final double? price;
+
   Product({
-    required this.name,
-    required this.id,
+    this.name,
+    this.id,
     this.image,
-    required this.price,
+    this.price,
   });
+
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       name: json['name'],
       id: json['id'],
       image: json['image'],
-      price: json['price'],
+      price: json['price']?.toDouble(),
     );
   }
+
   Map<String, dynamic> toJson() {
     return {'name': name, 'id': id, 'image': image, 'price': price};
   }
@@ -36,6 +37,16 @@ class Product {
       price: price ?? this.price,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Product &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   static List<Product> products = [
     Product(

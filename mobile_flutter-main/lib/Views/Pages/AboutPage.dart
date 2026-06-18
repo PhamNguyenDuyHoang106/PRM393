@@ -40,7 +40,6 @@ class AboutPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Buttonbar(),
     );
   }
 }

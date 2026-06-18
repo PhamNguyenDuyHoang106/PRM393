@@ -1,21 +1,30 @@
-import 'package:exam/Entity/Product.dart';
 import 'package:flutter/material.dart';
-import 'package:exam/Views/Widgets/ButtonBar.dart';
-import 'package:exam/Views/Widgets/ProductWidget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../Entity/Product.dart';
+import '../../shares/system_provider.dart';
+import '../Widgets/ProductWidget.dart';
 
-class ProductDetailPage extends StatelessWidget {
-  Product product;
-  ProductDetailPage({super.key, required this.product});
+class ProductDetailPage extends ConsumerWidget {
+  const ProductDetailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Product product = ref.watch(selectedProduct);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Center(child: Text("Product Detail")),
+        title: Center(
+          child: Text(
+            product.name ?? "Product Detail",
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        foregroundColor: Colors.white,
       ),
-      bottomNavigationBar: Buttonbar(),
-      body: ProductWidgetStateFull(product: product),
+      body: SingleChildScrollView(
+        child: ProductWidgetStateFull(product: product),
+      ),
     );
   }
 }
